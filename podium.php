@@ -3,11 +3,14 @@ session_start();
 
 
 
-$conn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
-    echo"conecter a la base de donner";
-	if (!$conn) {
+$connn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
+	if (!$connn) {
 		die("Connection failed: " . mysqli_connect_error());
 	}
+
+
+
+// partie count
 
 $requete8 = "SELECT joueurs.nom, joueurs.prenom, 
 COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
@@ -21,30 +24,25 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<h1>1st place</h1>
+<h1>podium</h1>
+<p>Voici le recapitulatife :</p>
+<table>
+	<tr>
+		<th>name</th>
+		<th>surname</th>
+		<th>victoire</th>
+		<th>Defaite</th>
+		<th>Egalité</th>
 
-<?php while($recap = mysqli_fetch_assoc($winner)) { ?>
-        <div>
-        <div><?php echo $recap['prenom']; ?></div>
-        <div><?php echo $recap['prenom']; ?></div>
-        <div><?php echo $recap['victoire']; ?></div>
-        <div><?php echo $recap['defait']; ?></div>
-        <div><?php echo $recap['egaliter']; ?></div>
-        <div>
-        
-    
-<?php } ?>
-<a href="index.php">Link Text</a>
+	</tr>
+	<?php while($recap = mysqli_fetch_assoc($winner)) { ?>
+		<div><tr>
+			<td><?php echo $recap['prenom']; ?></td>
+			<td><?php echo $recap['prenom']; ?></td>
+			<td><?php echo $recap['victoire']; ?></td>
+			<td><?php echo $recap['defait']; ?></td>
+			<td><?php echo $recap['egaliter']; ?></td>
+			
+		</tr></div>
+	<?php } ?>
 </table>
-
-</body>
-</html>

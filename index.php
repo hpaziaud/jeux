@@ -6,7 +6,7 @@
 	<title>Jeu de pierre, papier, ciseaux</title>
 </head>
 <body>
-<a href="podium.php">Link Text</a>
+<a href="podium.php">voir podium</a>
 	<h1>Jeu de pierre, papier, ciseaux</h1>
 	
 	<?php if(isset($_SESSION['prenom'])) { ?>
@@ -55,7 +55,7 @@ $result1 = mysqli_query($connn, $sql1);
 
 
 ?>
-<?php if(isset($_SESSION['prenom'])) {while($tabjouerN = mysqli_fetch_assoc($result1)) {?>
+<?php if(isset($_SESSION['prenom']) && basename($_SERVER['PHP_SELF']) === 'jouer.php') {while($tabjouerN = mysqli_fetch_assoc($result1)) {?>
 <h1>cest une <?php echo $tabjouerN['resultat']; ?></h1>
 <?php } }else{echo "";}?>
 
