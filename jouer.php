@@ -27,6 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom'])) {
        
         // Insertion du résultat dans la table "matchs"
         $sql = "INSERT INTO matchs (id_joueur, choix_joueur, choix_ordi, resultat) SELECT id_joueur, '$coup_joueur', '$coup_ordi', '$resultat' FROM joueurs WHERE prenom = '$prenom' AND nom = '$nom';" ;
+       
         if (mysqli_query($conn, $sql)) {
             header('Location: index.php');
             exit;

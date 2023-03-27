@@ -55,9 +55,9 @@ $result1 = mysqli_query($connn, $sql1);
 
 
 ?>
-<?php if(isset($_SESSION['prenom']) && basename($_SERVER['PHP_SELF']) === 'jouer.php') {while($tabjouerN = mysqli_fetch_assoc($result1)) {?>
+<?php if(isset($_SESSION['prenom']) && isset(mysqli_query($conn, $sql))) {while($tabjouerN = mysqli_fetch_assoc($result1)) {?>
 <h1>cest une <?php echo $tabjouerN['resultat']; ?></h1>
-<?php } }else{echo "";}?>
+<?php } }else{echo "";};?>
 
 
 
