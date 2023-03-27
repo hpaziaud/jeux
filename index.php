@@ -58,15 +58,53 @@ $result1 = mysqli_query($connn, $sql1);
 <h1>cest une <?php echo $tabjouerN['resultat']; ?></h1>
 <?php } ?>
 
+
+
+
+
+
+
 <?php
 // partie count
 
-$requete8 = "SELECT joueurs.nom,joueurs.prenom,COUNT(matchs.id_joueur) FROM `matchs`,`joueurs` WHERE matchs.resultat='victoire' AND matchs.id_joueur=joueurs.id_joueur GROUP BY id_joueur;";
-    }else{echo"";}
-  $resultat8 = $GLOBALS["pdo"]->query($requete8);
-  $tabjouerG = $resultat8->fetchALL();
+$requete8 = "SELECT joueurs.nom, joueurs.prenom, 
+COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
+COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
+COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
+FROM matchs 
+INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
+GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom;";
+  $winner = mysqli_query($connn, $requete8);  
 
 ?>
+
+
+<h1>tableau de bord</h1>
+<p>Voici le recapitulatife :</p>
+<table>
+	<tr>
+		<th>name</th>
+		<th>surname</th>
+		<th>victoire</th>
+		<th>Defaite</th>
+		<th>Egalité</th>
+
+	</tr>
+	<?php while($recap = mysqli_fetch_assoc($winner)) { ?>
+		<tr>
+			<td rowspan="2"><?php echo $recap['prenom']; ?></td>
+			<td><?php echo $recap['prenom']; ?></td>
+			<td><?php echo $recap['victoire']; ?></td>
+			<td><?php echo $recap['defait']; ?></td>
+			<td><?php echo $recap['egaliter']; ?></td>
+			
+		</tr>
+	<?php } ?>
+</table>
+
+
+
+
 
 
 
