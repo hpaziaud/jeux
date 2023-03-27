@@ -54,9 +54,9 @@ $result1 = mysqli_query($connn, $sql1);
 
 
 ?>
-<?php while($tabjouerN = mysqli_fetch_assoc($result1)) {?>
+<?php if(isset($_SESSION['prenom'])) {while($tabjouerN = mysqli_fetch_assoc($result1)) {?>
 <h1>cest une <?php echo $tabjouerN['resultat']; ?></h1>
-<?php } ?>
+<?php } }else{echo "";}?>
 
 
 
@@ -73,7 +73,7 @@ COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
 COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
 FROM matchs 
 INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
-GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom;";
+GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC;";
   $winner = mysqli_query($connn, $requete8);  
 
 ?>
@@ -92,7 +92,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom;";
 	</tr>
 	<?php while($recap = mysqli_fetch_assoc($winner)) { ?>
 		<tr>
-			<td rowspan="2"><?php echo $recap['prenom']; ?></td>
+			<td><?php echo $recap['prenom']; ?></td>
 			<td><?php echo $recap['prenom']; ?></td>
 			<td><?php echo $recap['victoire']; ?></td>
 			<td><?php echo $recap['defait']; ?></td>

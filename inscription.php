@@ -12,8 +12,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		die("Connexion échouée: " . mysqli_connect_error());
 	}
 	
+
+
+
 	// Insertion du nouvel utilisateur dans la table "joueurs"
-	$sql = "INSERT INTO joueurs (prenom, nom) VALUES ('$prenom', '$nom')";
+	$sql = "INSERT INTO joueurs (prenom, nom) VALUES ('$prenom', '$nom');";
 	if (mysqli_query($conn, $sql)) {
 		header('Location: index.php');
 		exit;
