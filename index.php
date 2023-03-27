@@ -54,7 +54,7 @@ $result1 = mysqli_query($connn, $sql1);
 
 
 ?>
-<?php while($tabjouerN = mysqli_fetch_assoc($result1)) { echo"coucou";?>
+<?php while($tabjouerN = mysqli_fetch_assoc($result1)) {?>
 <h1>cest une <?php echo $tabjouerN['resultat']; ?></h1>
 <?php } ?>
 
@@ -67,6 +67,7 @@ $requete8 = "SELECT joueurs.nom,joueurs.prenom,COUNT(matchs.id_joueur) FROM `mat
   $tabjouerG = $resultat8->fetchALL();
 
 ?>
+
 
 
 
