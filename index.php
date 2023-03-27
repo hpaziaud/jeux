@@ -6,6 +6,7 @@
 	<title>Jeu de pierre, papier, ciseaux</title>
 </head>
 <body>
+<a href="podium.php">Link Text</a>
 	<h1>Jeu de pierre, papier, ciseaux</h1>
 	
 	<?php if(isset($_SESSION['prenom'])) { ?>
