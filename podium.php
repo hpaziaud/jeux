@@ -46,3 +46,4 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 		</tr></div>
 	<?php } ?>
 </table>
+<a href="index.php">retour l'acuielle</a>

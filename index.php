@@ -6,7 +6,7 @@
 	<title>Jeu de pierre, papier, ciseaux</title>
 </head>
 <body>
-<a href="podium.php">voir podium</a>
+
 	<h1>Jeu de pierre, papier, ciseaux</h1>
 	
 	<?php if(isset($_SESSION['prenom'])) { ?>
@@ -16,7 +16,7 @@
 			<input type="radio" name="coup" value="pierre" id="pierre"><label for="pierre">Pierre</label><br>
 			<input type="radio" name="coup" value="papier" id="papier"><label for="papier">Papier</label><br>
 			<input type="radio" name="coup" value="ciseaux" id="ciseaux"><label for="ciseaux">Ciseaux</label><br>
-			<input type="submit" value="Jouer">
+			<input type="submit"  name="jouer" value="Jouer">
 		</form>
 		<p><a href="deconnexion.php">Déconnexion</a></p>
 	<?php } else { ?>
@@ -28,6 +28,8 @@
 			<input type="text" name="nom" id="nom" required><br>
 			<input type="submit" value="S'inscrire">
 		</form>
+
+		<a href="podium.php">voir podium</a>
 	<?php }  ?>
 
 	
@@ -55,7 +57,7 @@ $result1 = mysqli_query($connn, $sql1);
 
 
 ?>
-<?php if(isset($_SESSION['prenom']) && isset(mysqli_query($conn, $sql))) {while($tabjouerN = mysqli_fetch_assoc($result1)) {?>
+<?php if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom'])) {while($tabjouerN = mysqli_fetch_assoc($result1)) {?>
 <h1>cest une <?php echo $tabjouerN['resultat']; ?></h1>
 <?php } }else{echo "";};?>
 
