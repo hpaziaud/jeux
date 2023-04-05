@@ -602,6 +602,14 @@ input.form-control::placeholder {
     text-align: center;
 }
 
+.service_taital1 {
+    width: 100%;
+    float: left;
+    font-size: 50px;
+    color: #000000;
+    font-weight: 800;
+    text-align: center;
+}
 .service_section_2 {
     width: 100%;
     float: left;

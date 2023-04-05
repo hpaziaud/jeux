@@ -38,7 +38,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 	<?php while($recap = mysqli_fetch_assoc($winner)) { ?>
 		<div><tr>
 			<td><?php echo $recap['prenom']; ?></td>
-			<td><?php echo $recap['prenom']; ?></td>
+			<td><?php echo $recap['nom']; ?></td>
 			<td><?php echo $recap['victoire']; ?></td>
 			<td><?php echo $recap['defait']; ?></td>
 			<td><?php echo $recap['egaliter']; ?></td>
