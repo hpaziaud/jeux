@@ -63,6 +63,7 @@ $winner = mysqli_query($connn, $requete8);
 </head>
 
 <body>
+
     <!-- header section start -->
     <div class="container-fluid">
         <div class="header_section">
@@ -72,6 +73,7 @@ $winner = mysqli_query($connn, $requete8);
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                         <a href="edit.php">play</a>
                         <a href="podium.php">podium</a>
+                        <a href="deconnexion copy.php">deconnexion</a>
 
 
                     </div>
@@ -167,7 +169,10 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                     </div>
                     <div class="col-md-6">
                         <div class="blog_taital_main">
-                            <h1 class="blog_text"><h4 class="breakfast_text">or</h4></h1>
+                        <h4 style="color: blue; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.5px 1.5px #ccc; font-size: 70px;"><strong>1ier place</strong></h4>
+
+
+                            
                             <p class="blog_taital"><?php while ($recap11 = mysqli_fetch_assoc($first)) { ?>
                                     <tr style="color: blue;">
                                         <td class="useful_text"><strong><?php echo $recap11['prenom']; ?> -</strong> </td>
@@ -177,7 +182,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                     </tr>
                                 <?php } ?>
                             </p>
-                            <div class="readmore_btn"><a href="#">Read More</a></div>
+                            
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -185,7 +190,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                     </div>
                     <div class="col-md-6">
                         <div class="blog_taital_main">
-                            <h1 class="blog_text"><h4 class="breakfast_text">argent</h4></h1>
+                        <h4 style="color: red; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.5px 1.5px #ccc; font-size: 70px;"><strong>2iem place</strong></h4>
                             <p class="blog_taital"><?php while ($recap1 = mysqli_fetch_assoc($second)) { ?>
                         <tr>
                             <td><strong><?php echo $recap1['prenom']; ?> -</strong> </td>
@@ -194,7 +199,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 
                         </tr>
                     <?php } ?></p>
-                            <div class="readmore_btn"><a href="#">Read More</a></div>
+                            
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -202,7 +207,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                     </div>
                     <div class="col-md-6">
                         <div class="blog_taital_main">
-                            <h1 class="blog_text"><h4 class="breakfast_text">bronze</h4></h1>
+                        <h4 style="color:  yellow; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.5px 1.5px #ccc; font-size: 70px;"><strong>3iem place</strong></h4>
                             <p class="blog_taital"><?php while ($recap111 = mysqli_fetch_assoc($third)) { ?>
                         <tr>
                             <td><strong><?php echo $recap111['prenom']; ?> - </strong></td>
@@ -323,6 +328,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
             document.getElementById("mySidenav").style.width = "0";
         }
     </script>
+   
 </body>
-
+   
 </html>
