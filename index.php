@@ -258,7 +258,7 @@ $gameAPI = new GameAPI([
 ]);
 
 // check if the user has submitted a comment
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['comment'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['comment']) && isset($_GET['comment-submit'])) {
     // sanitize the comment text
     $comment = filter_var($_GET['comment'], FILTER_SANITIZE_STRING);
     
@@ -279,36 +279,67 @@ foreach ($comments as $comment) {
 }
 echo '</ul>';
 
-// output the comment form
-echo '<form method="GET">';
-echo '<label for="comment">Leave a comment:</label>';
-echo '<textarea name="comment" id="comment"></textarea>';
-echo '<button type="submit">Submit</button>';
-echo '</form>';
-
-
 
 
 ?>
 
-<form style="margin-top: 20px;" class="comment-form" method="GET">
-    <div class="form-group">
-        <label for="comment">Leave a comment:</label>
-        <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Type your comment here..."></textarea>
-    </div>
-    <button sqtyle="padding: 10px 20px;
-    font-size: 14px;
+
+
+<style>
+  .form-comment {
+    width: 80%;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .label-comment {
+    display: block;
+    margin-bottom: 5px;
     font-weight: bold;
-    background-color: #007bff;
+  }
+  
+ .textarea-comment {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  input[type="submit"] {
+    background-color: #4CAF50;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;" class="btn btn-primary" type="submit">Submit</button>
+    transition: background-color 0.3s ease;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+</style>
+
+<form class="form-comment" action="#" method="GET">
+  
+ 
+  <br>
+  <label class="label-comment" style="color:green;" for="comment">Comment:</label>
+  <br>
+  <textarea class="textarea-comment" id="comment" name="comment" rows="5" cols="40" required></textarea>
+  <br>
+  <input type="submit" name="comment-submit" value="Submit">
 </form>
-
-
-
 
 
 

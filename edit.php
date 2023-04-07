@@ -2,7 +2,7 @@
 //jouer.php
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom']) && isset($_POST['coup'])) {
     $prenom = $_SESSION['prenom'];
     $nom = $_SESSION['nom'];
     $coup_joueur = $_POST['coup'];
@@ -13,6 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom'])) {
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
+
+
+
 
     // Génération d'un coup aléatoire pour l'ordinateur
     $coups_possibles = array('pierre', 'papier', 'ciseaux');
@@ -98,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["deco"])) {
     <!-- bootstrap css -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <!-- style css -->
-   <link rel="stylesheet" type="text/css" href="css/style.css"> 
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <!-- Responsive-->
     <link rel="stylesheet" href="css/responsive.css">
     <!-- fevicon -->
@@ -141,352 +144,505 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["deco"])) {
         </div>
     </div>
     <div class="container-fluid">
-    <!-- header section end -->
-    <!-- layout main section start -->
-    <div class="container-fluid">
-        <div class="layout_main">
-            <!-- banner section start -->
-            <div class="banner_section">
+        <!-- header section end -->
+        <!-- layout main section start -->
+        <div class="container-fluid">
+            <div class="layout_main">
+                <!-- banner section start -->
                 <div class="banner_section">
-                    <div class="container">
-                        <div class="menu_main">
-                            <div class="custome_menu">
-                                <ul>
-                                    <li class="active"><a href="edit.php">play</a></li>
+                    <div class="banner_section">
+                        <div class="container">
+                            <div class="menu_main">
+                                <div class="custome_menu">
+                                    <ul>
+                                        <li class="active"><a href="edit.php">play</a></li>
 
 
 
 
-                                </ul>
-                            </div>
-                            <div class="login_menu">
-                                <ul>
-                                    <li><a href="podium copy.php">podium</a></li>
-                                    <li><a href="deconnexion copy.php">Déconnexion</a></li>
+                                    </ul>
+                                </div>
+                                <div class="login_menu">
+                                    <ul>
+                                        <li><a href="podium copy.php">podium</a></li>
+                                        <li><a href="deconnexion copy.php">Déconnexion</a></li>
 
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php if (isset($_SESSION['prenom'])) { ?>
-                        <div id="main_slider" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h1 class="banner_taital">peirre papier cissaux </h1>
-                                                <h1 class="banner_text">play</h1>
-                                                <form class="service_taital" method="post" action="">
-                                                    <p>Choisissez votre coup :</p>
-                                                    <input type="radio" name="coup" value="pierre" id="pierre" required><label for="pierre">Pierre</label><br>
-                                                    <input type="radio" name="coup" value="papier" id="papier"><label for="papier">Papier</label><br>
-                                                    <input type="radio" name="coup" value="ciseaux" id="ciseaux"><label for="ciseaux">Ciseaux</label><br>
+                        <?php if (isset($_SESSION['prenom'])) { ?>
+                            <div id="main_slider" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h1 class="banner_taital">peirre papier cissaux </h1>
+                                                    <h1 class="banner_text">play</h1>
+                                                    <form class="service_taital" method="post" action="">
+                                                        <p>Choisissez votre coup :</p>
+                                                        <input type="radio" name="coup" value="pierre" id="pierre" required><label for="pierre">Pierre</label><br>
+                                                        <input type="radio" name="coup" value="papier" id="papier"><label for="papier">Papier</label><br>
+                                                        <input type="radio" name="coup" value="ciseaux" id="ciseaux"><label for="ciseaux">Ciseaux</label><br>
 
 
-                                                    <div class="banner_text"><input type="submit" name="jouer" value="Jouer"></div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php } else { ?>
-
-                                <div id="main_slider" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h1 class="banner_taital">peirre papier cissaux </h1>
-                                                        <h1 class="banner_text">
-                                                            Inscrivez-vous pour jouer :
-                                                        </h1>
-
-
-                                                        <form class="service_taital" method="post" action="">
-
-                                                            <label for="prenom" style="color:green;">Prénom :</label>
-                                                            <input type="text" style="border: 2px solid #ccc; background-color: #fff; padding: 10px; border-radius: 5px; font-size: 16px; color: #333; width: 300px;" name="prenom" id="prenom" required><br>
-                                                            <label for="nom" style="color:green;">Nom :</label>
-                                                            <input type="text" style="border: 2px solid #ccc; background-color: #fff; padding: 10px; border-radius: 5px; font-size: 16px; color: #333; width: 300px;" name="nom" id="nom" required><br>
-
-
-
-                                                            <div><input type="submit" style="border: 2px solid #ccc; background-color: #fff; padding: 10px; border-radius: 5px; font-size: 16px; color: #333; cursor: pointer;" name="S'inscrire" value="S'inscrire"></div>
-                                                        </form>
-                                                    </div>
+                                                        <div class="banner_text"><input type="submit" name="jouer" value="Jouer"></div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php }  ?>
-                                    <?php
+                                    </div>
+                                <?php } else { ?>
+
+                                    <div id="main_slider" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <h1 class="banner_taital">peirre papier cissaux </h1>
+                                                            <h1 class="banner_text">
+                                                                Inscrivez-vous pour jouer :
+                                                            </h1>
 
 
-                                    // Connexion à la base de données
-                                    $connn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
+                                                            <form class="service_taital" method="post" action="">
 
-                                    // Vérification de la connexion
-                                    if (!$connn) {
-                                        die("Connection failed: " . mysqli_connect_error());
-                                    }
-
-                                    // Récupération des parties jouées par le joueur
-                                    $sql = "SELECT * FROM matchs, joueurs where matchs.id_joueur = joueurs.id_joueur ORDER BY `matchs`.`date_match` DESC";
-                                    $result = mysqli_query($connn, $sql);
-
-                                    $sql1 = "SELECT * FROM `matchs` ORDER BY `date_match` DESC LIMIT 1";
-                                    $result1 = mysqli_query($connn, $sql1);
-
-
-                                    ?>
-                                    <?php
-                                    $connn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
-                                    if (!$connn) {
-                                        die("Connection failed: " . mysqli_connect_error());
-                                    }
+                                                                <label for="prenom" style="color:green;">Prénom :</label>
+                                                                <input type="text" style="border: 2px solid #ccc; background-color: #fff; padding: 10px; border-radius: 5px; font-size: 16px; color: #333; width: 300px;" name="prenom" id="prenom" required><br>
+                                                                <label for="nom" style="color:green;">Nom :</label>
+                                                                <input type="text" style="border: 2px solid #ccc; background-color: #fff; padding: 10px; border-radius: 5px; font-size: 16px; color: #333; width: 300px;" name="nom" id="nom" required><br>
 
 
 
-                                    // partie count
+                                                                <div><input type="submit" style="border: 2px solid #ccc; background-color: #fff; padding: 10px; border-radius: 5px; font-size: 16px; color: #333; cursor: pointer;" name="S'inscrire" value="S'inscrire"></div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php }  ?>
+                                        <?php
 
-                                    $requete8 = "SELECT joueurs.nom, joueurs.prenom, 
+
+                                        // Connexion à la base de données
+                                        $connn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
+
+                                        // Vérification de la connexion
+                                        if (!$connn) {
+                                            die("Connection failed: " . mysqli_connect_error());
+                                        }
+
+                                        // Récupération des parties jouées par le joueur
+                                        $sql = "SELECT * FROM matchs, joueurs where matchs.id_joueur = joueurs.id_joueur ORDER BY `matchs`.`date_match` DESC";
+                                        $result = mysqli_query($connn, $sql);
+
+                                        $sql1 = "SELECT * FROM `matchs` ORDER BY `date_match` DESC LIMIT 1";
+                                        $result1 = mysqli_query($connn, $sql1);
+
+
+                                        ?>
+                                        <?php
+                                        $connn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
+                                        if (!$connn) {
+                                            die("Connection failed: " . mysqli_connect_error());
+                                        }
+
+
+
+                                        // partie count
+
+                                        $requete8 = "SELECT joueurs.nom, joueurs.prenom, 
 COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
 COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
 COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
 FROM matchs 
 INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
 GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC LIMIT 1;";
-                                    $first = mysqli_query($connn, $requete8);
+                                        $first = mysqli_query($connn, $requete8);
 
-                                    $requete9 = "SELECT joueurs.nom, joueurs.prenom, 
+                                        $requete9 = "SELECT joueurs.nom, joueurs.prenom, 
 COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
 COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
 COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
 FROM matchs 
 INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
 GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC LIMIT 1, 1;";
-                                    $second = mysqli_query($connn, $requete9);
+                                        $second = mysqli_query($connn, $requete9);
 
-                                    $requete10 = "SELECT joueurs.nom, joueurs.prenom, 
+                                        $requete10 = "SELECT joueurs.nom, joueurs.prenom, 
 COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
 COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
 COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
 FROM matchs 
 INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
 GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC LIMIT 2, 1;";
-                                    $third = mysqli_query($connn, $requete10);
-                                    ?>
+                                        $third = mysqli_query($connn, $requete10);
+                                        ?>
 
 
 
-                                    <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-                                        <i class="fa fa-angle-left"></i>
-                                    </a>
-                                    <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-                                        <i class="fa fa-angle-right"></i>
-                                    </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- banner section end -->
-                            <!-- service section start -->
-                            <div class="service_section layout_padding">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <?php
-                                            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom']) && isset($_POST['jouer'])) {
-                                                while ($tabjouerN = mysqli_fetch_assoc($result1)) { ?>
-                                                    <h1 class="service_taital">cest une <?php echo $tabjouerN['resultat']; ?></h1>
-                                            <?php }
-                                            } else {
-                                                echo "";
-                                            }; ?>
-
-                                            <hr>
-                                            <h1 class="service_taital" style="color:green;">podium</h1>
+                                        <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                        <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
                                         </div>
                                     </div>
-
-
-                                    <div class="service_section_2">
+                                </div>
+                                <!-- banner section end -->
+                                <!-- service section start -->
+                                <div class="service_section layout_padding">
+                                    <div class="container">
                                         <div class="row">
+                                            <div class="col-sm-12">
+                                                <?php
+                                                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom']) && isset($_POST['jouer'])) {
+                                                    while ($tabjouerN = mysqli_fetch_assoc($result1)) { ?>
+                                                        <h1 class="service_taital">cest une <?php echo $tabjouerN['resultat']; ?></h1>
+                                                <?php }
+                                                } else {
+                                                    echo "";
+                                                }; ?>
 
-                                            <div class="col">
-                                                <div>
-                                                    <div class="breakfast_img"> <img src="https://st4.depositphotos.com/8888322/24169/v/450/depositphotos_241697356-stock-illustration-heart-emoticon-wears-crown-cartoon.jpg" style="width:250px;height:240px;"></div>
-                                                </div>
-                                                <h4 class="breakfast_text">2iem</h4>
-                                                <h1 style="color:green;">
-                                                    <table>
-                                                        <tr>
-                                                            <th> </th>
-                                                            <th> </th>
-                                                            <th></th>
+                                                <hr>
+                                                <h1 class="service_taital" style="color:green;">podium</h1>
+                                            </div>
+                                        </div>
 
 
-                                                        </tr>
-                                                        <?php while ($recap1 = mysqli_fetch_assoc($second)) { ?>
+                                        <div class="service_section_2">
+                                            <div class="row">
+
+                                                <div class="col">
+                                                    <div>
+                                                        <div class="breakfast_img"> <img src="https://st4.depositphotos.com/8888322/24169/v/450/depositphotos_241697356-stock-illustration-heart-emoticon-wears-crown-cartoon.jpg" style="width:250px;height:240px;"></div>
+                                                    </div>
+                                                    <h4 class="breakfast_text">2iem</h4>
+                                                    <h1 style="color:green;">
+                                                        <table>
                                                             <tr>
-                                                                <td><strong><?php echo $recap1['prenom']; ?> - </strong></td>
-                                                                <td><strong><?php echo $recap1['nom']; ?> - </strong></td>
-                                                                <td><strong><?php echo $recap1['victoire']; ?></strong></td>
+                                                                <th> </th>
+                                                                <th> </th>
+                                                                <th></th>
 
 
                                                             </tr>
-                                                        <?php } ?>
-                                                    </table>
-                                                </h1>
-                                                <div class="seemore_bt"><a href="podium copy.php">See in podium</a></div>
-                                            </div>
+                                                            <?php while ($recap1 = mysqli_fetch_assoc($second)) { ?>
+                                                                <tr>
+                                                                    <td><strong><?php echo $recap1['prenom']; ?> - </strong></td>
+                                                                    <td><strong><?php echo $recap1['nom']; ?> - </strong></td>
+                                                                    <td><strong><?php echo $recap1['victoire']; ?></strong></td>
 
-                                            <div class="col">
-                                                <div>
-                                                    <div class="breakfast_img"><img src="https://st5.depositphotos.com/72897924/62328/v/450/depositphotos_623280004-stock-illustration-coronavirus-cartoon-style-crown.jpg" style="width:250px;height:240px;"></div>
+
+                                                                </tr>
+                                                            <?php } ?>
+                                                        </table>
+                                                    </h1>
+                                                    <div class="seemore_bt"><a href="podium copy.php">See in podium</a></div>
                                                 </div>
-                                                <h4 class="breakfast_text">1ier</h4>
-                                                <h1 style="color:green;">
-                                                    <table>
-                                                        <tr>
-                                                            <th></th>
-                                                            <th></th>
-                                                            <th></th>
 
-
-                                                        </tr>
-                                                        <?php while ($recap11 = mysqli_fetch_assoc($first)) { ?>
+                                                <div class="col">
+                                                    <div>
+                                                        <div class="breakfast_img"><img src="https://st5.depositphotos.com/72897924/62328/v/450/depositphotos_623280004-stock-illustration-coronavirus-cartoon-style-crown.jpg" style="width:250px;height:240px;"></div>
+                                                    </div>
+                                                    <h4 class="breakfast_text">1ier</h4>
+                                                    <h1 style="color:green;">
+                                                        <table>
                                                             <tr>
-                                                                <td><strong><?php echo $recap11['prenom']; ?> -</strong> </td>
-                                                                <td><strong><?php echo $recap11['nom']; ?> - </strong></td>
-                                                                <td><strong><?php echo $recap11['victoire']; ?></strong></td>
-
-                                                            </tr>
-                                                        <?php } ?>
-                                                    </table>
-                                                </h1>
-                                                <div class="seemore_bt"><a href="podium copy.php">See in podium</a></div>
-                                            </div>
-
-                                            <div class="col">
-                                                <div>
-                                                    <div class="breakfast_img"><img src="https://st2.depositphotos.com/1037178/9804/v/450/depositphotos_98049054-stock-illustration-drooling-king-emoji-smiley-emoticon.jpg" style="width:250px;height:240px;"></div>
-                                                </div>
-                                                <h4 class="breakfast_text">3iem</h4>
-                                                <h1 style="color:green;">
-                                                    <table>
-                                                        <tr>
-                                                            <th></th>
-                                                            <th></th>
-                                                            <th></th>
-
-
-                                                        </tr>
-                                                        <?php while ($recap111 = mysqli_fetch_assoc($third)) { ?>
-                                                            <tr>
-                                                                <td><strong><?php echo $recap111['prenom']; ?> - </strong></td>
-                                                                <td><strong><?php echo $recap111['nom']; ?> - </strong></td>
-                                                                <td><strong><?php echo $recap111['victoire']; ?></strong></td>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
 
 
                                                             </tr>
-                                                        <?php } ?>
-                                                    </table>
-                                                </h1>
-                                                <div class="seemore_bt"><a href="podium copy.php">See in podium</a></div>
+                                                            <?php while ($recap11 = mysqli_fetch_assoc($first)) { ?>
+                                                                <tr>
+                                                                    <td><strong><?php echo $recap11['prenom']; ?> -</strong> </td>
+                                                                    <td><strong><?php echo $recap11['nom']; ?> - </strong></td>
+                                                                    <td><strong><?php echo $recap11['victoire']; ?></strong></td>
+
+                                                                </tr>
+                                                            <?php } ?>
+                                                        </table>
+                                                    </h1>
+                                                    <div class="seemore_bt"><a href="podium copy.php">See in podium</a></div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div>
+                                                        <div class="breakfast_img"><img src="https://st2.depositphotos.com/1037178/9804/v/450/depositphotos_98049054-stock-illustration-drooling-king-emoji-smiley-emoticon.jpg" style="width:250px;height:240px;"></div>
+                                                    </div>
+                                                    <h4 class="breakfast_text">3iem</h4>
+                                                    <h1 style="color:green;">
+                                                        <table>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+
+
+                                                            </tr>
+                                                            <?php while ($recap111 = mysqli_fetch_assoc($third)) { ?>
+                                                                <tr>
+                                                                    <td><strong><?php echo $recap111['prenom']; ?> - </strong></td>
+                                                                    <td><strong><?php echo $recap111['nom']; ?> - </strong></td>
+                                                                    <td><strong><?php echo $recap111['victoire']; ?></strong></td>
+
+
+                                                                </tr>
+                                                            <?php } ?>
+                                                        </table>
+                                                    </h1>
+                                                    <div class="seemore_bt"><a href="podium copy.php">See in podium</a></div>
+                                                </div>
+
+
+
                                             </div>
-
-
-
                                         </div>
                                     </div>
+
+
                                 </div>
-
-
                             </div>
-                        </div>
-                        <?php
-                        // partie count
+                            <?php
+                            // partie count
 
-                        $requete8 = "SELECT joueurs.nom, joueurs.prenom, 
+                            $requete8 = "SELECT joueurs.nom, joueurs.prenom, 
 COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
 COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
 COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
 FROM matchs 
 INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
 GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC;";
-                        $winner = mysqli_query($connn, $requete8);
+                            $winner = mysqli_query($connn, $requete8);
 
-                        ?>
+                            ?>
 
-                        <div class="breakfast_text" style="text-align: center;">
+                            <div class="breakfast_text" style="text-align: center;">
 
-                            <p class="breakfast_text">Voici le list gagnant :</p>
-                            <table style="text-align: center;">
-                                <tr>
-                                    <th>name</th>
-                                    <th>surname</th>
-                                    <th>victoire</th>
-                                    <th>Defaite</th>
-                                    <th>Egalité</th>
-
-                                </tr>
-                                <?php while ($recap = mysqli_fetch_assoc($winner)) { ?>
+                                <p class="breakfast_text">Voici le list gagnant :</p>
+                                <table style="text-align: center;">
                                     <tr>
-                                        <td><?php echo $recap['prenom']; ?></td>
-                                        <td><?php echo $recap['nom']; ?></td>
-                                        <td><?php echo $recap['victoire']; ?></td>
-                                        <td><?php echo $recap['defait']; ?></td>
-                                        <td><?php echo $recap['egaliter']; ?></td>
+                                        <th>name</th>
+                                        <th>surname</th>
+                                        <th>victoire</th>
+                                        <th>Defaite</th>
+                                        <th>Egalité</th>
 
                                     </tr>
-                                <?php } ?>
-                            </table>
-                        </div>
-                </div>
-                        <!-- service section end -->
-                        <!-- footer section start -->
-                        <div class="footer_section">
-                            <div class="container">
-                                <div class="footer_sectio_2">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-6">
-                                            <h2 class="footer_logo">pierre papier siceaux</h2>
-                                            <p class="footer_text">ce jeux fait partie du classement mondial top 10 millions</p>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6">
-                                            <h2 class="useful_text">Navigation</h2>
-                                            <div class="footer_menu">
-                                                <ul>
-                                                    <li class="active"><a href="edit.php">play</a></li>
-                                                    <li><a href="podium copy.php">podium</a></li>
-                                                    <li><a href="deconnexion copy.php">deconnexion</a></li>
+                                    <?php while ($recap = mysqli_fetch_assoc($winner)) { ?>
+                                        <tr>
+                                            <td><?php echo $recap['prenom']; ?></td>
+                                            <td><?php echo $recap['nom']; ?></td>
+                                            <td><?php echo $recap['victoire']; ?></td>
+                                            <td><?php echo $recap['defait']; ?></td>
+                                            <td><?php echo $recap['egaliter']; ?></td>
 
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6">
-                                            <h2 class="useful_text">Contact Info</h2>
-                                            <div class="map_icon"><a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left15">( +33 0771755876 )</span></a></div>
-                                            <div class="map_icon"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left15">paziaud-moutima@gmail.com</span></a></div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6">
-                                            <h2 class="useful_text">Discover</h2>
+                                        </tr>
+                                    <?php } ?>
+                                </table>
 
-                                            <div class="social_icon">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                                </ul>
-                                            </div>
+
+                                <?php
+
+                                class GameAPI
+                                {
+                                    private $db; // database connection object
+
+                                    public function __construct($db_config)
+                                    {
+                                        // establish database connection
+                                        $this->db = new PDO("mysql:host={$db_config['host']};dbname={$db_config['dbname']}", $db_config['username'], $db_config['password']);
+                                    }
+
+                                    public function addComment($comment)
+                                    {
+                                        // insert new comment into database
+                                        $stmt = $this->db->prepare("INSERT INTO comments (comment) VALUES (:comment)");
+                                        $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
+                                        return $stmt->execute();
+                                    }
+
+                                    public function getComments()
+                                    {
+                                        // retrieve all comments from database
+                                        $stmt = $this->db->query("SELECT * FROM comments ORDER BY created_at DESC");
+                                        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    }
+
+                                    // add more methods as needed
+                                }
+
+
+
+
+
+                                // include the GameAPI class file
+
+
+                                // create a new GameAPI instance with the database configuration
+                                $gameAPI = new GameAPI([
+                                    'host' => '192.168.65.60',
+                                    'dbname' => 'JEUX',
+                                    'username' => 'test',
+                                    'password' => 'test'
+                                ]);
+
+                                // check if the user has submitted a comment
+                                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment']) && isset($_POST['comment-submit'])) {
+                                    // sanitize the comment text
+                                    $comment = filter_var($_POST['comment'], FILTER_SANITIZE_STRING);
+
+                                    // add the comment to the database
+                                    $gameAPI->addComment($comment);
+
+                                    header("Location: thank-you-page.php");
+                                    exit;
+                                }
+
+                                // get all comments from the database
+                                $comments = $gameAPI->getComments();
+
+                                ?>
+                                <style>
+                                    .form-comment {
+                                        width: 80%;
+                                        margin: 0 auto;
+                                        font-family: Arial, sans-serif;
+                                        font-size: 16px;
+                                        color: #333;
+                                        border: 2px solid #ccc;
+                                        padding: 20px;
+                                        border-radius: 5px;
+                                    }
+
+                                    .label-comment {
+                                        display: block;
+                                        margin-bottom: 5px;
+                                        font-weight: bold;
+                                    }
+
+                                    .textarea-comment {
+                                        width: 100%;
+                                        padding: 10px;
+                                        border: 1px solid #ccc;
+                                        border-radius: 5px;
+                                        margin-bottom: 20px;
+                                        box-sizing: border-box;
+                                        font-size: 16px;
+                                        color: #333;
+                                    }
+
+                                    input[type="submit"] {
+                                        background-color: #4CAF50;
+                                        color: #fff;
+                                        border: none;
+                                        padding: 10px 20px;
+                                        border-radius: 5px;
+                                        font-size: 16px;
+                                        cursor: pointer;
+                                        transition: background-color 0.3s ease;
+                                    }
+
+                                    input[type="submit"]:hover {
+                                        background-color: #3e8e41;
+                                    }
+                                </style>
+
+                                <style>
+                                    .comment-list {
+                                        list-style: none;
+                                        margin: 0;
+                                        padding: 0;
+                                    }
+
+                                    .comment1 {
+                                        background-color: #f7f7f7;
+                                        border: 1px solid #ddd;
+                                        padding: 10px;
+                                        margin-bottom: 10px;
+                                        display: inline-block;
+                                        max-width: 100%;
+                                    }
+                                </style>
+                                <form class="form-comment">
+                                    <ul class="comment-list">
+                                        <?php foreach ($comments as $comment) : ?>
+                                            <li class="comment1"><?= htmlspecialchars($comment['comment']) ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+
+                                </form>
+
+
+
+
+
+
+                                <form class="form-comment" action="#" method="POST">
+
+
+                                    <br>
+                                    <label class="label-comment" style="color:green;" for="comment">Comment:</label>
+                                    <br>
+                                    <textarea class="textarea-comment" id="comment" name="comment" rows="5" cols="40" required></textarea>
+                                    <br>
+                                    <input type="submit" name="comment-submit" value="Submit">
+                                </form>
+                            </div>
+                    </div>
+
+
+
+
+
+                    <!-- service section end -->
+                    <!-- footer section start -->
+                    <div class="footer_section">
+                        <div class="container">
+                            <div class="footer_sectio_2">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-6">
+                                        <h2 class="footer_logo">pierre papier siceaux</h2>
+                                        <p class="footer_text">ce jeux fait partie du classement mondial top 10 millions</p>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <h2 class="useful_text">Navigation</h2>
+                                        <div class="footer_menu">
+                                            <ul>
+                                                <li class="active"><a href="edit.php">play</a></li>
+                                                <li><a href="podium copy.php">podium</a></li>
+                                                <li><a href="deconnexion copy.php">deconnexion</a></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <h2 class="useful_text">Contact Info</h2>
+                                        <div class="map_icon"><a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left15">( +33 0771755876 )</span></a></div>
+                                        <div class="map_icon"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left15">paziaud-moutima@gmail.com</span></a></div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <h2 class="useful_text">Discover</h2>
+
+                                        <div class="social_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- footer section end -->
+                    </div>
+                    <!-- footer section end -->
                 </div>
             </div>
         </div>
