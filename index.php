@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["S'inscrire"])) {
 <html>
 
 <head>
+<link rel="stylesheet" type="text/css" href="css/comment.css">
 	<title>Jeu de pierre, papier, ciseaux</title>
 </head>
 
@@ -213,6 +214,130 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 			</tr>
 		<?php } ?>
 	</table>
+
+
+<?php
+
+class GameAPI {
+    private $db; // database connection object
+    
+    public function __construct($db_config) {
+        // establish database connection
+        $this->db = new PDO("mysql:host={$db_config['host']};dbname={$db_config['dbname']}", $db_config['username'], $db_config['password']);
+    }
+    
+    public function addComment($comment) {
+        // insert new comment into database
+        $stmt = $this->db->prepare("INSERT INTO comments (comment) VALUES (:comment)");
+        $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+    
+    public function getComments() {
+        // retrieve all comments from database
+        $stmt = $this->db->query("SELECT * FROM comments ORDER BY created_at DESC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    // add more methods as needed
+}
+
+
+
+
+
+// include the GameAPI class file
+
+
+// create a new GameAPI instance with the database configuration
+$gameAPI = new GameAPI([
+    'host' => '192.168.65.60',
+    'dbname' => 'JEUX',
+    'username' => 'test',
+    'password' => 'test'
+]);
+
+// check if the user has submitted a comment
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['comment'])) {
+    // sanitize the comment text
+    $comment = filter_var($_GET['comment'], FILTER_SANITIZE_STRING);
+    
+    // add the comment to the database
+    $gameAPI->addComment($comment);
+    
+    
+  
+}
+
+// get all comments from the database
+$comments = $gameAPI->getComments();
+
+// output the comments as an HTML list
+echo '<ul>';
+foreach ($comments as $comment) {
+    echo '<li>' . htmlspecialchars($comment['comment']) . '</li>';
+}
+echo '</ul>';
+
+// output the comment form
+echo '<form method="GET">';
+echo '<label for="comment">Leave a comment:</label>';
+echo '<textarea name="comment" id="comment"></textarea>';
+echo '<button type="submit">Submit</button>';
+echo '</form>';
+
+
+
+
+?>
+
+<form style="margin-top: 20px;" class="comment-form" method="GET">
+    <div class="form-group">
+        <label for="comment">Leave a comment:</label>
+        <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Type your comment here..."></textarea>
+    </div>
+    <button sqtyle="padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;" class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 
