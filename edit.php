@@ -45,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom']) && isset(
 //inscription.php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["S'inscrire"])) {
+   
     $prenom = $_POST['prenom'];
     $nom = $_POST['nom'];
     $_SESSION['prenom'] = $prenom;
@@ -178,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["deco"])) {
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <h1 class="banner_taital">peirre papier cissaux </h1>
+                                                    <h1 class="banner_taital">peirre papier ciseaux </h1>
                                                     <h1 class="banner_text">play</h1>
                                                     <form class="service_taital" method="post" action="">
                                                         <p>Choisissez votre coup :</p>
@@ -283,12 +284,8 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 
 
 
-                                        <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-                                            <i class="fa fa-angle-left"></i>
-                                        </a>
-                                        <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
+                                        
+                                        
                                         </div>
                                     </div>
                                 </div>
@@ -341,7 +338,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                                             <?php } ?>
                                                         </table>
                                                     </h1>
-                                                    <div class="seemore_bt"><a href="podium copy.php">See in podium</a></div>
+                                                    <div class="seemore_bt"><a href="podium copy.php">voir en podium</a></div>
                                                 </div>
 
                                                 <div class="col">
@@ -368,7 +365,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                                             <?php } ?>
                                                         </table>
                                                     </h1>
-                                                    <div class="seemore_bt"><a href="podium copy.php">See in podium</a></div>
+                                                    <div class="seemore_bt"><a href="podium copy.php">voir en podium</a></div>
                                                 </div>
 
                                                 <div class="col">
@@ -396,7 +393,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                                             <?php } ?>
                                                         </table>
                                                     </h1>
-                                                    <div class="seemore_bt"><a href="podium copy.php">See in podium</a></div>
+                                                    <div class="seemore_bt"><a href="podium copy.php">voir en podium</a></div>
                                                 </div>
 
 
@@ -495,12 +492,12 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                 // check if the user has submitted a comment
                                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment']) && isset($_POST['comment-submit'])) {
                                     // sanitize the comment text
-                                    $comment = filter_var($_POST['comment'], FILTER_SANITIZE_STRING);
+                                    $comment = $_POST['comment'];
 
                                     // add the comment to the database
                                     $gameAPI->addComment($comment);
 
-                                    header("Location: thank-you-page.php");
+                                   
                                     exit;
                                 }
 
@@ -581,18 +578,18 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 
 
 
-
-
+                                 <?php if (isset($_SESSION['prenom'])) { ?>
                                 <form class="form-comment" action="#" method="POST">
 
 
                                     <br>
-                                    <label class="label-comment" style="color:green;" for="comment">Comment:</label>
+                                    <label class="label-comment" style="color:green;" for="comment">Commentaire:</label>
                                     <br>
                                     <textarea class="textarea-comment" id="comment" name="comment" rows="5" cols="40" required></textarea>
                                     <br>
-                                    <input type="submit" name="comment-submit" value="Submit">
+                                    <input type="submit" name="comment-submit" value="envoyer">
                                 </form>
+                                <?php }else{}?>
                             </div>
                     </div>
 
@@ -607,7 +604,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                             <div class="footer_sectio_2">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-6">
-                                        <h2 class="footer_logo">pierre papier siceaux</h2>
+                                        <h2 class="footer_logo">pierre papier ciseaux</h2>
                                         <p class="footer_text">ce jeux fait partie du classement mondial top 10 millions</p>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
@@ -627,7 +624,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                         <div class="map_icon"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left15">paziaud-moutima@gmail.com</span></a></div>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
-                                        <h2 class="useful_text">Discover</h2>
+                                        <h2 class="useful_text">Découvrir</h2>
 
                                         <div class="social_icon">
                                             <ul>

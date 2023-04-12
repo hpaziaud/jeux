@@ -37,7 +37,7 @@ $winner = mysqli_query($connn, $requete8);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Foodfinda</title>
+    <title>pierre, papier, ciseaux</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -169,15 +169,15 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                     </div>
                     <div class="col-md-6">
                         <div class="blog_taital_main">
-                        <h4 style="color: blue; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.5px 1.5px #ccc; font-size: 70px;"><strong>1ier place</strong></h4>
+                        <h4 style="color: #8eb50b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.5px 1.5px #ccc; font-size: 70px;"><strong>1ier place</strong></h4>
 
 
                             
                             <p class="blog_taital"><?php while ($recap11 = mysqli_fetch_assoc($first)) { ?>
-                                    <tr style="color: blue;">
-                                        <td class="useful_text"><strong><?php echo $recap11['prenom']; ?> -</strong> </td>
-                                        <td><strong><?php echo $recap11['nom']; ?> - </strong></td>
-                                        <td><strong><?php echo $recap11['victoire']; ?></strong></td>
+                                    <tr >
+                                        <td ><strong style="color: #8eb50b;"><?php echo $recap11['prenom']; ?> -</strong></td>
+                                        <td><strong style="color: #8eb50b;"><?php echo $recap11['nom']; ?> - </strong></td>
+                                        <td><p style="font-size: 50px;"><b><strong style="color: #8eb50b;"><?php echo $recap11['victoire']; ?></strong></b></p></td>
 
                                     </tr>
                                 <?php } ?>
@@ -190,12 +190,12 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                     </div>
                     <div class="col-md-6">
                         <div class="blog_taital_main">
-                        <h4 style="color: red; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.5px 1.5px #ccc; font-size: 70px;"><strong>2iem place</strong></h4>
+                        <h4 style="color: #8eb50b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.5px 1.5px #ccc; font-size: 70px;"><strong>2iem place</strong></h4>
                             <p class="blog_taital"><?php while ($recap1 = mysqli_fetch_assoc($second)) { ?>
                         <tr>
-                            <td><strong><?php echo $recap1['prenom']; ?> -</strong> </td>
-                            <td><strong><?php echo $recap1['nom']; ?> - </strong></td>
-                            <td><strong><?php echo $recap1['victoire']; ?></strong></td>
+                            <td><strong style="color: #8eb50b;"><?php echo $recap1['prenom']; ?> -</strong> </td>
+                            <td><strong style="color: #8eb50b;"><?php echo $recap1['nom']; ?> - </strong></td>
+                            <td><p style="font-size: 50px;"><b><strong style="color: #8eb50b;"><?php echo $recap1['victoire']; ?></strong></b></p></td>
 
                         </tr>
                     <?php } ?></p>
@@ -207,17 +207,17 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                     </div>
                     <div class="col-md-6">
                         <div class="blog_taital_main">
-                        <h4 style="color:  yellow; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.5px 1.5px #ccc; font-size: 70px;"><strong>3iem place</strong></h4>
+                        <h4 style="color: #8eb50b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.5px 1.5px #ccc; font-size: 70px;"><strong>3iem place</strong></h4>
                             <p class="blog_taital"><?php while ($recap111 = mysqli_fetch_assoc($third)) { ?>
                         <tr>
-                            <td><strong><?php echo $recap111['prenom']; ?> - </strong></td>
-                            <td><strong><?php echo $recap111['nom']; ?> - </strong></td>
-                            <td><strong><?php echo $recap111['victoire']; ?></strong></td>
+                            <td><strong style="color: #8eb50b;"><?php echo $recap111['prenom']; ?> - </strong></td>
+                            <td><strong style="color: #8eb50b;"><?php echo $recap111['nom']; ?> - </strong></td>
+                            <td><p style="font-size: 50px;"><b><strong style="color: #8eb50b;"><?php echo $recap111['victoire']; ?></strong></b></p></td>
 
 
                         </tr>
                     <?php } ?></p>
-                            <div class="readmore_btn"><a href="#">Read More</a></div>
+                        
                         </div>
                     </div>
                 </div>
@@ -229,23 +229,23 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 	$result = mysqli_query($connn, $sql);
 ?>
 <div class="breakfast_text" style="text-align: center;">
-<p class="breakfast_text">Voici le recapitulatife :</p>
+<p class="breakfast_text" style="color: #8eb50b;">Voici le recapitulatife :</p>
 <table class="breakfast_text">
 	<tr>
-		<th>name</th>
-		<th>surname</th>
-		<th>victoire</th>
-		<th>Defaite</th>
-		<th>Egalité</th>
+		<th style="color: #8eb50b;">name</th>
+		<th style="color: #8eb50b;">surname</th>
+		<th style="color: #8eb50b;">victoire</th>
+		<th style="color: #8eb50b;">Defaite</th>
+		<th style="color: #8eb50b;">Egalité</th>
 
 	</tr>
 	<?php while($recap = mysqli_fetch_assoc($winner)) { ?>
 		<div><tr>
-			<td><?php echo $recap['prenom']; ?></td>
-			<td><?php echo $recap['nom']; ?></td>
-			<td><?php echo $recap['victoire']; ?></td>
-			<td><?php echo $recap['defait']; ?></td>
-			<td><?php echo $recap['egaliter']; ?></td>
+			<td style="color: #8eb50b;"><?php echo $recap['prenom']; ?></td>
+			<td style="color: #8eb50b;"><?php echo $recap['nom']; ?></td>
+			<td style="color: #8eb50b;"><?php echo $recap['victoire']; ?></td>
+			<td style="color: #8eb50b;"><?php echo $recap['defait']; ?></td>
+			<td style="color: #8eb50b;"><?php echo $recap['egaliter']; ?></td>
 			
 		</tr></div>
 	<?php } ?>
@@ -260,7 +260,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                 <div class="footer_sectio_2">
                     <div class="row">
                         <div class="col-lg-3 col-md-6">
-                            <h2 class="footer_logo">pierre papier siceaux</h2>
+                            <h2 class="footer_logo">pierre papier ciseaux</h2>
                             <p class="footer_text">ce jeux fait partie du classement mondial top 10 millions</p>
                         </div>
                         <div class="col-lg-3 col-md-6">
@@ -280,7 +280,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                             <div class="map_icon"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left15">paziaud-moutima@gmail.com</span></a></div>
                         </div>
                         <div class="col-lg-3 col-md-6">
-                            <h2 class="useful_text">Discover</h2>
+                            <h2 class="useful_text">Découvrir</h2>
                             
                             <div class="social_icon">
                                 <ul>
