@@ -229,7 +229,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 	$result = mysqli_query($connn, $sql);
 ?>
 <div class="breakfast_text" style="text-align: center;">
-<p class="breakfast_text" style="color: #8eb50b;">Voici le recapitulatife :</p>
+<p class="breakfast_text" style="color: #8eb50b;">Voici le recapitulatif :</p>
 <table class="breakfast_text">
 	<tr>
 		<th style="color: #8eb50b;">name</th>

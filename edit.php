@@ -4,6 +4,7 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom']) && isset($_POST['coup'])) {
     $prenom = $_SESSION['prenom'];
+
     $nom = $_SESSION['nom'];
     $coup_joueur = $_POST['coup'];
 
@@ -45,11 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom']) && isset(
 //inscription.php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["S'inscrire"])) {
-   
+
     $prenom = $_POST['prenom'];
     $nom = $_POST['nom'];
     $_SESSION['prenom'] = $prenom;
     $_SESSION['nom'] = $nom;
+   
 
     // Connexion à la base de données
     $conn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
@@ -156,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["deco"])) {
                             <div class="menu_main">
                                 <div class="custome_menu">
                                     <ul>
-                                        <li class="active"><a href="edit.php">play</a></li>
+                                        <li class="active"><a href="edit.php">jouer</a></li>
 
 
 
@@ -284,8 +286,8 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 
 
 
-                                        
-                                        
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -421,7 +423,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 
                             <div class="breakfast_text" style="text-align: center;">
 
-                                <p class="breakfast_text">Voici le list gagnant :</p>
+                                <p class="breakfast_text">Voici la liste gagnante :</p>
                                 <table style="text-align: center;">
                                     <tr>
                                         <th>name</th>
@@ -445,29 +447,43 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 
 
                                 <?php
+                                 $requeteidcomment = "SELECT id_joueur, nom FROM joueurs ORDER BY id_joueur DESC LIMIT 1;";
+                                 $idcomment = mysqli_query($connn, $requeteidcomment);
+                                  while ($iduser = mysqli_fetch_assoc($idcomment)) { 
+                                  $saved_id_joueur = $iduser['id_joueur'];
+                                 
+                                     
+                               }
 
                                 class GameAPI
                                 {
                                     private $db; // database connection object
+                                    private $saved_id_joueur;
 
-                                    public function __construct($db_config)
+                                    public function __construct($db_config, $saved_id_joueur)
                                     {
                                         // establish database connection
                                         $this->db = new PDO("mysql:host={$db_config['host']};dbname={$db_config['dbname']}", $db_config['username'], $db_config['password']);
+                                    $this->saved_id_joueur =  $saved_id_joueur;
                                     }
 
                                     public function addComment($comment)
                                     {
                                         // insert new comment into database
-                                        $stmt = $this->db->prepare("INSERT INTO comments (comment) VALUES (:comment)");
+                                        
+
+                                       
+                                        
+                                        $stmt = $this->db->prepare("INSERT INTO `comments` (`id`, `comment`, `created_at`, `idUserQuiEcrit`) VALUES (NULL, :comment, current_timestamp(), :saved_id_joueur)");
                                         $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
+                                        $stmt->bindValue(':saved_id_joueur', $this->saved_id_joueur, PDO::PARAM_INT);
                                         return $stmt->execute();
                                     }
 
                                     public function getComments()
                                     {
                                         // retrieve all comments from database
-                                        $stmt = $this->db->query("SELECT * FROM comments ORDER BY created_at DESC");
+                                        $stmt = $this->db->query("SELECT * FROM `comments` INNER JOIN `joueurs` ON `comments`.`idUserQuiEcrit` = `joueurs`.`id_joueur` ORDER BY `comments`.`idUserQuiEcrit` ASC");
                                         return $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     }
 
@@ -487,7 +503,8 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                     'dbname' => 'JEUX',
                                     'username' => 'test',
                                     'password' => 'test'
-                                ]);
+                                  
+                                ], $saved_id_joueur);
 
                                 // check if the user has submitted a comment
                                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment']) && isset($_POST['comment-submit'])) {
@@ -497,7 +514,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                     // add the comment to the database
                                     $gameAPI->addComment($comment);
 
-                                   
+
                                     exit;
                                 }
 
@@ -569,7 +586,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                 <form class="form-comment">
                                     <ul class="comment-list">
                                         <?php foreach ($comments as $comment) : ?>
-                                            <li class="comment1"><?= htmlspecialchars($comment['comment']) ?></li>
+                                            <li class="comment1"><?= $comment['prenom'] ?> <?= $comment['nom'] ?> : <?= htmlspecialchars($comment['comment']) ?><?= $comment['idUserQuiEcrit'] ?></li>
                                         <?php endforeach; ?>
                                     </ul>
 
@@ -578,18 +595,19 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 
 
 
-                                 <?php if (isset($_SESSION['prenom'])) { ?>
-                                <form class="form-comment" action="#" method="POST">
+                                <?php if (isset($_SESSION['prenom'])) { ?>
+                                    <form class="form-comment" action="#" method="POST">
 
 
-                                    <br>
-                                    <label class="label-comment" style="color:green;" for="comment">Commentaire:</label>
-                                    <br>
-                                    <textarea class="textarea-comment" id="comment" name="comment" rows="5" cols="40" required></textarea>
-                                    <br>
-                                    <input type="submit" name="comment-submit" value="envoyer">
-                                </form>
-                                <?php }else{}?>
+                                        <br>
+                                        <label class="label-comment" style="color:green;" for="comment">Commentaire:</label>
+                                        <br>
+                                        <textarea class="textarea-comment" id="comment" name="comment" rows="5" cols="40" required></textarea>
+                                        <br>
+                                        <input type="submit" name="comment-submit" value="envoyer">
+                                    </form>
+                                <?php } else {
+                                } ?>
                             </div>
                     </div>
 

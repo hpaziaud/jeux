@@ -163,7 +163,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 
 
 	<h1>tableau de bord</h1>
-	<p>Voici le recapitulatife :</p>
+	<p>Voici le recapitulatif :</p>
 	<table>
 		<tr>
 			<th>name</th>
