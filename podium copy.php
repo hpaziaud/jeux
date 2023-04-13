@@ -177,7 +177,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                     <tr >
                                         <td ><strong style="color: #8eb50b;"><?php echo $recap11['prenom']; ?> -</strong></td>
                                         <td><strong style="color: #8eb50b;"><?php echo $recap11['nom']; ?> - </strong></td>
-                                        <td><p style="font-size: 50px;"><b><strong style="color: #8eb50b;"><?php echo $recap11['victoire']; ?></strong></b></p></td>
+                                        <td><p style="font-size: 50px;"><b><strong style="color: #8eb50b;"><?php echo $recap11['victoire']; ?> victoire</strong></b></p></td>
 
                                     </tr>
                                 <?php } ?>
@@ -195,7 +195,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                         <tr>
                             <td><strong style="color: #8eb50b;"><?php echo $recap1['prenom']; ?> -</strong> </td>
                             <td><strong style="color: #8eb50b;"><?php echo $recap1['nom']; ?> - </strong></td>
-                            <td><p style="font-size: 50px;"><b><strong style="color: #8eb50b;"><?php echo $recap1['victoire']; ?></strong></b></p></td>
+                            <td><p style="font-size: 50px;"><b><strong style="color: #8eb50b;"><?php echo $recap1['victoire']; ?> vicoire</strong></b></p></td>
 
                         </tr>
                     <?php } ?></p>
@@ -212,7 +212,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                         <tr>
                             <td><strong style="color: #8eb50b;"><?php echo $recap111['prenom']; ?> - </strong></td>
                             <td><strong style="color: #8eb50b;"><?php echo $recap111['nom']; ?> - </strong></td>
-                            <td><p style="font-size: 50px;"><b><strong style="color: #8eb50b;"><?php echo $recap111['victoire']; ?></strong></b></p></td>
+                            <td><p style="font-size: 50px;"><b><strong style="color: #8eb50b;"><?php echo $recap111['victoire']; ?> victoire</strong></b></p></td>
 
 
                         </tr>

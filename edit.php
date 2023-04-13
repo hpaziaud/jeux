@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["S'inscrire"])) {
     $nom = $_POST['nom'];
     $_SESSION['prenom'] = $prenom;
     $_SESSION['nom'] = $nom;
-   
+
 
     // Connexion à la base de données
     $conn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
@@ -79,6 +79,68 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["deco"])) {
 } else {
 }
 
+
+
+
+
+
+// Connexion à la base de données
+$connn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
+
+// Vérification de la connexion
+if (!$connn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Récupération des parties jouées par le joueur
+$sql = "SELECT * FROM matchs, joueurs where matchs.id_joueur = joueurs.id_joueur ORDER BY `matchs`.`date_match` DESC";
+$result = mysqli_query($connn, $sql);
+
+$sql1 = "SELECT * FROM `matchs` ORDER BY `date_match` DESC LIMIT 1";
+$result1 = mysqli_query($connn, $sql1);
+
+$sqlX = "SELECT * FROM `matchs` ORDER BY `date_match` DESC LIMIT 1";
+$resultX = mysqli_query($connn, $sqlX);
+
+
+
+?>
+<?php
+$connn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
+if (!$connn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+
+
+// partie count
+
+$requete8 = "SELECT joueurs.nom, joueurs.prenom, 
+COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
+COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
+COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
+FROM matchs 
+INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
+GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC LIMIT 1;";
+$first = mysqli_query($connn, $requete8);
+
+$requete9 = "SELECT joueurs.nom, joueurs.prenom, 
+COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
+COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
+COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
+FROM matchs 
+INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
+GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC LIMIT 1, 1;";
+$second = mysqli_query($connn, $requete9);
+
+$requete10 = "SELECT joueurs.nom, joueurs.prenom, 
+COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
+COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
+COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
+FROM matchs 
+INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
+GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC LIMIT 2, 1;";
+$third = mysqli_query($connn, $requete10);
 
 ?>
 
@@ -184,11 +246,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["deco"])) {
                                                     <h1 class="banner_taital">peirre papier ciseaux </h1>
                                                     <h1 class="banner_text">play</h1>
                                                     <form class="service_taital" method="post" action="">
+                                                    <?php
+                                                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom']) && isset($_POST['jouer'])) {
+                                                    while ($tabjouerN = mysqli_fetch_assoc($result1)) { ?>
+                                                       
+                                                <?php if($tabjouerN['resultat']=="victoire"){ ?> 
+                                                   <div style="font-size: 100px;"> &#129395;       -     - victoire         -      -  &#129395;</div>
+                                            
+                                                    <?php }elseif($tabjouerN['resultat']=="défaite"){ ?> 
+                                                        <div style="font-size: 100px;"> &#129398;       -     -  defaite       -   -  &#129398;</div>
+                                                        
+                                            
+                                            
+                                            <?php }else{ ?> 
+                                                <div style="font-size: 100px;">&#128529;        -      -  egaliter    -      -    &#128529;</div>
+                                               
+
+
+                                            <?php }} 
+                                                } else {
+                                                    echo "";
+                                                };
+                                                
+                                                ?>
                                                         <p>Choisissez votre coup :</p>
                                                         <input type="radio" name="coup" value="pierre" id="pierre" required><label for="pierre">Pierre</label><br>
                                                         <input type="radio" name="coup" value="papier" id="papier"><label for="papier">Papier</label><br>
                                                         <input type="radio" name="coup" value="ciseaux" id="ciseaux"><label for="ciseaux">Ciseaux</label><br>
-
+                                                        
 
                                                         <div class="banner_text"><input type="submit" name="jouer" value="Jouer"></div>
                                                     </form>
@@ -229,59 +314,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["deco"])) {
                                         <?php
 
 
-                                        // Connexion à la base de données
-                                        $connn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
-
-                                        // Vérification de la connexion
-                                        if (!$connn) {
-                                            die("Connection failed: " . mysqli_connect_error());
-                                        }
-
-                                        // Récupération des parties jouées par le joueur
-                                        $sql = "SELECT * FROM matchs, joueurs where matchs.id_joueur = joueurs.id_joueur ORDER BY `matchs`.`date_match` DESC";
-                                        $result = mysqli_query($connn, $sql);
-
-                                        $sql1 = "SELECT * FROM `matchs` ORDER BY `date_match` DESC LIMIT 1";
-                                        $result1 = mysqli_query($connn, $sql1);
-
-
-                                        ?>
-                                        <?php
-                                        $connn = mysqli_connect('192.168.65.60', 'test', 'test', 'JEUX');
-                                        if (!$connn) {
-                                            die("Connection failed: " . mysqli_connect_error());
-                                        }
-
-
-
-                                        // partie count
-
-                                        $requete8 = "SELECT joueurs.nom, joueurs.prenom, 
-COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
-COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
-COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
-FROM matchs 
-INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
-GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC LIMIT 1;";
-                                        $first = mysqli_query($connn, $requete8);
-
-                                        $requete9 = "SELECT joueurs.nom, joueurs.prenom, 
-COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
-COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
-COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
-FROM matchs 
-INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
-GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC LIMIT 1, 1;";
-                                        $second = mysqli_query($connn, $requete9);
-
-                                        $requete10 = "SELECT joueurs.nom, joueurs.prenom, 
-COUNT(CASE WHEN matchs.resultat = 'victoire' THEN 1 END) AS victoire,
-COUNT(CASE WHEN matchs.resultat = 'défaite' THEN 1 END) AS defait,
-COUNT(CASE WHEN matchs.resultat = 'égalité' THEN 1 END) AS egaliter
-FROM matchs 
-INNER JOIN joueurs ON matchs.id_joueur = joueurs.id_joueur 
-GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC LIMIT 2, 1;";
-                                        $third = mysqli_query($connn, $requete10);
+                                        
                                         ?>
 
 
@@ -297,14 +330,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <?php
-                                                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom']) && isset($_POST['jouer'])) {
-                                                    while ($tabjouerN = mysqli_fetch_assoc($result1)) { ?>
-                                                        <h1 class="service_taital">cest une <?php echo $tabjouerN['resultat']; ?></h1>
-                                                <?php }
-                                                } else {
-                                                    echo "";
-                                                }; ?>
+                                               
 
                                                 <hr>
                                                 <h1 class="service_taital" style="color:green;">podium</h1>
@@ -398,7 +424,29 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                                     <div class="seemore_bt"><a href="podium copy.php">voir en podium</a></div>
                                                 </div>
 
+                                                <?php
+                                                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['prenom']) && isset($_POST['jouer'])) {
+                                                    while ($tabjouerN1 = mysqli_fetch_assoc($resultX)) { ?>
+                                                
+                                                <?php if($tabjouerN1['resultat']=="victoire"){ ?> 
+                                                   <div style="font-size: 100px;"> &#129395;       -        -      -      -     -         -     -      -    -   -   -  &#129395;</div>
+                                            
+                                                    <?php }elseif($tabjouerN1['resultat']=="défaite"){ ?> 
+                                                        <div style="font-size: 100px;"> &#129398;       -        -      -      -     -         -     -      -    -   -   -  &#129398;</div>
+                                                        
+                                            
+                                            
+                                            <?php }else{ ?> 
+                                                <div style="font-size: 100px;">&#128529;       -        -      -      -     -         -     -      -    -   -   -  &#128529;</div>
+                                               
 
+
+                                            <?php }} 
+                                                } else {
+                                                    echo "";
+                                                };
+                                                
+                                                ?>
 
                                             </div>
                                         </div>
@@ -447,13 +495,11 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
 
 
                                 <?php
-                                 $requeteidcomment = "SELECT id_joueur, nom FROM joueurs ORDER BY id_joueur DESC LIMIT 1;";
-                                 $idcomment = mysqli_query($connn, $requeteidcomment);
-                                  while ($iduser = mysqli_fetch_assoc($idcomment)) { 
-                                  $saved_id_joueur = $iduser['id_joueur'];
-                                 
-                                     
-                               }
+                                $requeteidcomment = "SELECT id_joueur, nom FROM joueurs ORDER BY id_joueur DESC LIMIT 1;";
+                                $idcomment = mysqli_query($connn, $requeteidcomment);
+                                while ($iduser = mysqli_fetch_assoc($idcomment)) {
+                                    $saved_id_joueur = $iduser['id_joueur'];
+                                }
 
                                 class GameAPI
                                 {
@@ -464,16 +510,16 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                     {
                                         // establish database connection
                                         $this->db = new PDO("mysql:host={$db_config['host']};dbname={$db_config['dbname']}", $db_config['username'], $db_config['password']);
-                                    $this->saved_id_joueur =  $saved_id_joueur;
+                                        $this->saved_id_joueur =  $saved_id_joueur;
                                     }
 
                                     public function addComment($comment)
                                     {
                                         // insert new comment into database
-                                        
 
-                                       
-                                        
+
+
+
                                         $stmt = $this->db->prepare("INSERT INTO `comments` (`id`, `comment`, `created_at`, `idUserQuiEcrit`) VALUES (NULL, :comment, current_timestamp(), :saved_id_joueur)");
                                         $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
                                         $stmt->bindValue(':saved_id_joueur', $this->saved_id_joueur, PDO::PARAM_INT);
@@ -503,7 +549,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                     'dbname' => 'JEUX',
                                     'username' => 'test',
                                     'password' => 'test'
-                                  
+
                                 ], $saved_id_joueur);
 
                                 // check if the user has submitted a comment
@@ -586,7 +632,9 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                 <form class="form-comment">
                                     <ul class="comment-list">
                                         <?php foreach ($comments as $comment) : ?>
-                                            <li class="comment1"><?= $comment['prenom'] ?> <?= $comment['nom'] ?> : <?= htmlspecialchars($comment['comment']) ?><?= $comment['idUserQuiEcrit'] ?></li>
+                                            <li class="comment1">
+                                                <div style="color: #8eb50b;"><?= $comment['prenom'] ?> <?= $comment['nom'] ?> : </div><?= $comment['comment'] ?>
+                                            </li>
                                         <?php endforeach; ?>
                                     </ul>
 
@@ -608,6 +656,7 @@ GROUP BY joueurs.id_joueur, joueurs.nom, joueurs.prenom ORDER BY `victoire` DESC
                                     </form>
                                 <?php } else {
                                 } ?>
+
                             </div>
                     </div>
 
